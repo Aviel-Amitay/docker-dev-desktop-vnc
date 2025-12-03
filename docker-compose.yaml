@@ -1,0 +1,17 @@
+#version: "3.9"
+
+services:
+  devdesktop:
+    build: ./VNC
+    image: dev-desktop-vnc
+    container_name: dev-desktop-vnc
+    # 1. Publish port 5901 to the host
+    ports:
+      - "5901:5901"
+    # 2. Start VNC when the container starts
+    command: >
+      bash -lc "vncserver :1 -geometry 1920x1080 -depth 16 -localhost no &&
+                tail -F /home/dev/.vnc/*.log"
+    # (optional) If your image expects a specific user:
+    user: "dev"
+    working_dir: /home/dev
