@@ -15,3 +15,6 @@ services:
     # (optional) If your image expects a specific user:
     user: "dev"
     working_dir: /home/dev
+
+    volumes:
+      - ./workspace:/workspace

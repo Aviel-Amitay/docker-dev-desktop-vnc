@@ -41,7 +41,7 @@ Access your GUI environment using any VNC client — great for development, test
 
 ```bash
 git clone https://github.com/Aviel-Amitay/docker-dev-desktop-vnc.git
-cd dev-desktop-vnc
+cd docker-dev-desktop-vnc
 ```
 
 ## 2. Build the image
@@ -65,7 +65,9 @@ docker compose ps
 Expected:
 
 ```
-dev-desktop-vnc   Up    0.0.0.0:5901->5901/tcp
+ % docker compose ps
+NAME              IMAGE             COMMAND                  SERVICE      CREATED          STATUS          PORTS
+dev-desktop-vnc   dev-desktop-vnc   "/usr/local/bin/star…"   devdesktop   31 seconds ago   Up 30 seconds   0.0.0.0:5901->5901/tcp, [::]:5901->5901/tcp
 ```
 
 ---
@@ -96,6 +98,10 @@ environment:
 ```
 
 Edit OS password in vnc/Dockerfile
+```bash
+vi vnc/Dockerfile
+```
+
 ```bash
 RUN echo "dev:myStrongPassword" | chpasswd
 ```
