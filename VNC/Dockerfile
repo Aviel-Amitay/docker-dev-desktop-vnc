@@ -23,14 +23,16 @@ RUN apt update && apt install -y \
 
 # --- OPTIONAL (heavier): install VS Code GUI ---
 # 🔑 KEY CHANGE: comment this whole block if you want *lighter* image.
-RUN apt update && \
-    apt install -y gpg apt-transport-https && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates gnupg && \
+    install -d -m 0755 /usr/share/keyrings && \
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /usr/share/keyrings/ms-vscode.gpg && \
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/ms-vscode.gpg] https://packages.microsoft.com/repos/code stable main" \
-    > /etc/apt/sources.list.d/vscode.list && \
-    apt update && \
-    apt install -y code \
-    && apt clean && rm -rf /var/lib/apt/lists/*
+    ARCH="$(dpkg --print-architecture)" && \
+    echo "deb [arch=${ARCH} signed-by=/usr/share/keyrings/ms-vscode.gpg] https://packages.microsoft.com/repos/code stable main" \
+      > /etc/apt/sources.list.d/vscode.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends code && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # --- Create non-root user "dev" ---
 RUN useradd -m -s /bin/bash dev \
