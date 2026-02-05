@@ -39,19 +39,26 @@ Access your GUI environment using any VNC client — great for development, test
 
 # 📌 Pre-Requirements
 
+## Install the latest PowerShell
+
+```powershell
+winget install --id Microsoft.PowerShell --source winget
+```
+
+
 ## ▶️ How to Run the Script (Required)
 
 * Download a PoweShell script for the installation of Git and Docker packages.
 
 ```powershell
-wget https://github.com/Aviel-Amitay/docker-dev-desktop-vnc/blob/main/install-git-and-docker.ps1
+wget -Uri "https://raw.githubusercontent.com/Aviel-Amitay/docker-dev-desktop-vnc/main/install-git-and-docker.ps1" -OutFile "install-git-and-docker.ps1"
 ```
 
-* Run this command for allow explicitly using PowerShell with execution bypass enabled for this file:
+* Run this command as Administrator for allow explicitly using PowerShell with execution bypass enabled for this file:
 
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File install-git-and-docker.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\install-git-and-docker.ps1
 ```
 
 ## What I have include in the script
@@ -61,13 +68,6 @@ If you have onw of the package, it will print the package version.
 * Install silent the default configuration.
 * Check if you have a diffrente IDE, and ask prompt if you want to change, for example: PyCharm, VS Code, etc.
 * If the script detect that you have an old version will offer if you want to upgarde the package.
-
-* Run the install script as Administrator
-
-
-```powershell
-install-git-and-docker.ps1
-```
 
 
 # 🛠 Installation & Usage
