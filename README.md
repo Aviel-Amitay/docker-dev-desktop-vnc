@@ -9,6 +9,7 @@ Access your GUI environment using any VNC client — great for development, test
 
 ## 📌 Features
 
+* **Install Git & Docker Script** 
 * **Ubuntu 22.04 Desktop**
 * **XFCE** (lightweight & fast)
 * **TigerVNC** preconfigured
@@ -27,6 +28,7 @@ Access your GUI environment using any VNC client — great for development, test
 ```
 /
 ├── docker-compose.yaml      # Compose file to run the VNC desktop container
+├── install-git-and-docker.ps1 # Install Git and Docker app on PC
 ├── vnc -> VNC               # Symlink for convenience
 └── VNC/
      ├── Dockerfile          # The full VNC-enabled Ubuntu desktop image build
@@ -34,6 +36,39 @@ Access your GUI environment using any VNC client — great for development, test
 ```
 
 ---
+
+# 📌 Pre-Requirements
+
+## ▶️ How to Run the Script (Required)
+
+* Download a PoweShell script for the installation of Git and Docker packages.
+
+```powershell
+wget https://github.com/Aviel-Amitay/docker-dev-desktop-vnc/blob/main/install-git-and-docker.ps1
+```
+
+* Run this command for allow explicitly using PowerShell with execution bypass enabled for this file:
+
+
+```powershell
+powershell -ExecutionPolicy Bypass -File install-git-and-docker.ps1
+```
+
+## What I have include in the script
+
+* Script will check if you have currently install Git or Docker.
+If you have onw of the package, it will print the package version.
+* Install silent the default configuration.
+* Check if you have a diffrente IDE, and ask prompt if you want to change, for example: PyCharm, VS Code, etc.
+* If the script detect that you have an old version will offer if you want to upgarde the package.
+
+* Run the install script as Administrator
+
+
+```powershell
+install-git-and-docker.ps1
+```
+
 
 # 🛠 Installation & Usage
 
