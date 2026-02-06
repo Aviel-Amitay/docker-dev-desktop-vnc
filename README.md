@@ -1,6 +1,6 @@
 # 🚀 Dev Desktop VNC Environment
 
-### *Ubuntu 22.04 + XFCE + TigerVNC + Optional VS Code GUI*
+## Ubuntu 22.04 + XFCE + TigerVNC + Optional VS Code GUI
 
 A fully-featured remote Linux desktop packaged inside a Docker container.
 Access your GUI environment using any VNC client — great for development, testing, Linux training, automation, and having a clean desktop environment without touching your host system.
@@ -9,23 +9,57 @@ Access your GUI environment using any VNC client — great for development, test
 
 ## 📌 Features
 
-* **Install Git & Docker Script** 
-* **Ubuntu 22.04 Desktop**
-* **XFCE** (lightweight & fast)
-* **TigerVNC** preconfigured
-* **Default OS and VNC password:** `changeme` 🔑
-* **Non-root `dev` user** (passwordless sudo)
-* **Automatic VNC + XFCE startup**
-* **Configurable resolution** (default: 1920×1080)
-* **Optional GUI Visual Studio Code**
-* Works on **Linux / macOS / Windows**
-* No X11 installation needed on the host
+- **Install Git & Docker Script**
+- **Ubuntu 22.04 Desktop**
+- **XFCE** (lightweight & fast)
+- **TigerVNC** preconfigured
+- **Default OS and VNC password:** `changeme` 🔑
+- **Non-root `dev` user** (passwordless sudo)
+- **Automatic VNC + XFCE startup**
+- **Configurable resolution** (default: 1920×1080)
+- **Optional GUI Visual Studio Code**
+- Works on **Linux / macOS / Windows**
+- No X11 installation needed on the host
 
 ---
 
-# 📁 Repository Structure
+## Table of content
 
-```
+- [🚀 Dev Desktop VNC Environment](#-dev-desktop-vnc-environment)
+  - [Ubuntu 22.04 + XFCE + TigerVNC + Optional VS Code GUI](#ubuntu-2204--xfce--tigervnc--optional-vs-code-gui)
+  - [📌 Features](#-features)
+  - [Table of content](#table-of-content)
+  - [📁 Repository Structure](#-repository-structure)
+  - [📌 Pre-Requirements](#-pre-requirements)
+    - [Install the latest PowerShell](#install-the-latest-powershell)
+    - [▶️ How to Run the Script (Required)](#️-how-to-run-the-script-required)
+    - [What I have include in the script](#what-i-have-include-in-the-script)
+  - [🛠 Installation \& Usage](#-installation--usage)
+    - [1. Clone the repo](#1-clone-the-repo)
+    - [2. Build the image](#2-build-the-image)
+    - [3. Start the desktop container](#3-start-the-desktop-container)
+    - [4. Verify it’s running](#4-verify-its-running)
+  - [🔗 Connect via VNC](#-connect-via-vnc)
+    - [Connection details](#connection-details)
+  - [🔧 Custom Configuration Examples](#-custom-configuration-examples)
+    - [Change Password](#change-password)
+    - [Change Screen Resolution](#change-screen-resolution)
+    - [Mount a workspace into the desktop environment](#mount-a-workspace-into-the-desktop-environment)
+  - [🖥 Manual VNC Server Control](#-manual-vnc-server-control)
+    - [Inside the container](#inside-the-container)
+  - [🧰 Useful Docker Commands](#-useful-docker-commands)
+  - [❗ Troubleshooting](#-troubleshooting)
+    - [❌ Cannot connect (Connection refused)](#-cannot-connect-connection-refused)
+    - [❌ VNC crashes or exits immediately](#-vnc-crashes-or-exits-immediately)
+    - [❌ User or permissions issues](#-user-or-permissions-issues)
+  - [🧩 Use Cases](#-use-cases)
+  - [🙌 Contributions](#-contributions)
+
+---
+
+## 📁 Repository Structure
+
+```text
 /
 ├── docker-compose.yaml      # Compose file to run the VNC desktop container
 ├── install-git-and-docker.ps1 # Install Git and Docker app on PC
@@ -37,61 +71,58 @@ Access your GUI environment using any VNC client — great for development, test
 
 ---
 
-# 📌 Pre-Requirements
+## 📌 Pre-Requirements
 
-## Install the latest PowerShell
+### Install the latest PowerShell
 
 ```powershell
 winget install --id Microsoft.PowerShell --source winget
 ```
 
+### ▶️ How to Run the Script (Required)
 
-## ▶️ How to Run the Script (Required)
-
-* Download a PoweShell script for the installation of Git and Docker packages.
+- Download a PoweShell script for the installation of Git and Docker packages.
 
 ```powershell
 wget -Uri "https://raw.githubusercontent.com/Aviel-Amitay/docker-dev-desktop-vnc/main/install-git-and-docker.ps1" -OutFile "install-git-and-docker.ps1"
 ```
 
-* Run this command as Administrator for allow explicitly using PowerShell with execution bypass enabled for this file:
-
+- Run this command as Administrator for allow explicitly using PowerShell with execution bypass enabled for this file:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\install-git-and-docker.ps1
 ```
 
-## What I have include in the script
+### What I have include in the script
 
-* Script will check if you have currently install Git or Docker.
-If you have onw of the package, it will print the package version.
-* Install silent the default configuration.
-* Check if you have a diffrente IDE, and ask prompt if you want to change, for example: PyCharm, VS Code, etc.
-* If the script detect that you have an old version will offer if you want to upgarde the package.
+- Script will check if you have currently install Git or Docker.
+  If you have onw of the package, it will print the package version.
+- Install silent the default configuration.
+- Check if you have a diffrente IDE, and ask prompt if you want to change, for example: PyCharm, VS Code, etc.
+- If the script detect that you have an old version will offer if you want to upgarde the package.
 
+## 🛠 Installation & Usage
 
-# 🛠 Installation & Usage
-
-## 1. Clone the repo
+### 1. Clone the repo
 
 ```bash
 git clone https://github.com/Aviel-Amitay/docker-dev-desktop-vnc.git
 cd docker-dev-desktop-vnc
 ```
 
-## 2. Build the image
+### 2. Build the image
 
 ```bash
 docker compose build
 ```
 
-## 3. Start the desktop container
+### 3. Start the desktop container
 
 ```bash
 docker compose up -d
 ```
 
-## 4. Verify it’s running
+### 4. Verify it’s running
 
 ```bash
 docker compose ps
@@ -107,13 +138,13 @@ dev-desktop-vnc   dev-desktop-vnc   "/usr/local/bin/star…"   devdesktop   31 s
 
 ---
 
-# 🔗 Connect via VNC
+## 🔗 Connect via VNC
 
 Use any VNC client (RealVNC, TightVNC, Remmina, UltraVNC, etc.)
 
-### Connection details:
+### Connection details
 
-```
+```bash
 Host: 127.0.0.1
 Port: 5901
 Password: changeme
@@ -121,9 +152,9 @@ Password: changeme
 
 ---
 
-# 🔧 Custom Configuration Examples
+## 🔧 Custom Configuration Examples
 
-## Change Password
+### Change Password
 
 Edit in `docker-compose.yaml`:
 
@@ -133,6 +164,7 @@ environment:
 ```
 
 Edit OS password in vnc/Dockerfile
+
 ```bash
 vi vnc/Dockerfile
 ```
@@ -149,7 +181,7 @@ changeme
 
 ---
 
-## Change Screen Resolution
+### Change Screen Resolution
 
 ```yaml
 environment:
@@ -159,7 +191,7 @@ environment:
 
 ---
 
-## Mount a workspace into the desktop environment
+### Mount a workspace into the desktop environment
 
 ```yaml
 volumes:
@@ -168,9 +200,9 @@ volumes:
 
 ---
 
-# 🖥 Manual VNC Server Control
+## 🖥 Manual VNC Server Control
 
-### Inside the container:
+### Inside the container
 
 ```bash
 docker exec -it dev-desktop-vnc bash
@@ -196,7 +228,7 @@ vncserver -kill :1
 
 ---
 
-# 🧰 Useful Docker Commands
+## 🧰 Useful Docker Commands
 
 Stop container:
 
@@ -224,7 +256,7 @@ docker port dev-desktop-vnc
 
 ---
 
-# ❗ Troubleshooting
+## ❗ Troubleshooting
 
 ### ❌ Cannot connect (Connection refused)
 
@@ -277,17 +309,17 @@ Ensure Dockerfile defines that user.
 
 ---
 
-# 🧩 Use Cases
+## 🧩 Use Cases
 
-* Remote GUI environment for development
-* Lightweight Linux desktop inside Docker
-* GUI application testing
-* Educational/training sandbox
-* Running VS Code GUI without installing it locally
-* Safe environment for Linux experimentation
+- Remote GUI environment for development
+- Lightweight Linux desktop inside Docker
+- GUI application testing
+- Educational/training sandbox
+- Running VS Code GUI without installing it locally
+- Safe environment for Linux experimentation
 
 ---
 
-# 🙌 Contributions
+## 🙌 Contributions
 
 PRs, issues, and suggestions are welcome!
