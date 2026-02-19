@@ -1,4 +1,5 @@
-FROM ubuntu:22.04
+FROM ubuntu:latest
+#FROM ubuntu:22.04 # Intsall Ubuntu version 22.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=en_US.UTF-8 \
@@ -21,8 +22,8 @@ RUN apt update && apt install -y \
     && locale-gen en_US.UTF-8 \
     && apt clean && rm -rf /var/lib/apt/lists/*
 
-# --- OPTIONAL (heavier): install VS Code GUI ---
-# 🔑 KEY CHANGE: comment this whole block if you want *lighter* image.
+# OPTIONAL - Install VS Code GUI ###
+# 🔑 If you want a lighter image, comment this whole block. #
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates gnupg && \
     install -d -m 0755 /usr/share/keyrings && \
@@ -35,10 +36,11 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # --- Create non-root user "dev" ---
-RUN useradd -m -s /bin/bash dev \
+RUN useradd -c "dev" -m -s /bin/bash dev \
     && echo "dev ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/dev \
     && chmod 0440 /etc/sudoers.d/dev
 
+# IMPORTANT -  Update here MyPassword 
 RUN echo "dev:changeme" | chpasswd
 
 USER dev
@@ -62,6 +64,13 @@ RUN echo '\
 firefox &\n\
 code --no-sandbox &\n\
 ' >> /home/dev/.xsession
+
+RUN cat <<'EOF' >> /home/dev/.bashrc
+
+# Personal Aliases, added with the Dockerfile
+alias less=more
+alias code='code --no-sandbox'
+EOF
 
 # 🔑 COPY script as root, then chmod it
 USER root
