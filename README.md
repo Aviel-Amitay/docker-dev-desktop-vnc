@@ -7,6 +7,14 @@ Access your GUI environment using any VNC client — great for development, test
 
 ---
 
+# Contributions in the Last 30 Days   
+
+
+<div align="center">
+  <img src="https://repobeats.axiom.co/api/embed/4013ed890be7dd4b82d47827b7eac463a38a676a.svg">
+</div>
+---
+
 ## 📌 Features
 
 - **Install Git & Docker Script**
