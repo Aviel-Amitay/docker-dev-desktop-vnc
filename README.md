@@ -59,13 +59,15 @@ Access your GUI environment using any VNC client — great for development, test
 ## 📁 Repository Structure
 
 ```text
-/
-├── docker-compose.yaml      # Compose file to run the VNC desktop container
-├── install-git-and-docker.ps1 # Install Git and Docker app on PC
-├── vnc -> VNC               # Symlink for convenience
-└── VNC/
-     ├── Dockerfile          # The full VNC-enabled Ubuntu desktop image build
-     └── start-vnc.sh        # Startup script launching TigerVNC + XFCE
+docker-dev-desktop-vnc
+├── README.md
+├── VNC
+│   ├── Dockerfile              # The full VNC-enabled Ubuntu desktop image build
+│   └── start-vnc.sh            # Startup script launching TigerVNC + XFCE
+├── build_dev_linux_vnc.sh      # Wrapper script for a QNAP OS arch 
+├── docker-compose.yaml         # Compose file to run the VNC desktop container
+├── install-git-and-docker.ps1  # Install Git and Docker app on PC
+└── workspace                   # Share volume between the Docker and Host
 ```
 
 ---

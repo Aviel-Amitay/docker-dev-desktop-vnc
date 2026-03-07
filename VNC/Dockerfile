@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-#FROM ubuntu:22.04 # Intsall Ubuntu version 22.04
+#FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=en_US.UTF-8 \
@@ -18,7 +18,6 @@ RUN apt update && apt install -y \
     wget \
     curl \
     net-tools \
-    firefox \
     && locale-gen en_US.UTF-8 \
     && apt clean && rm -rf /var/lib/apt/lists/*
 
@@ -35,6 +34,14 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends code && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# --- Update font Apperance ----
+USER root
+RUN mkdir -p /etc/xdg/xfce4/terminal && \
+    cat <<'EOF' > /etc/xdg/xfce4/terminal/terminalrc
+        [Configuration]
+        FontName=Monospace Regular 15
+EOF
+
 # --- Create non-root user "dev" ---
 RUN useradd -c "dev" -m -s /bin/bash dev \
     && echo "dev ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/dev \
@@ -47,21 +54,27 @@ USER dev
 WORKDIR /home/dev
 
 # --- VNC + XFCE startup configuration ---
-RUN mkdir -p /home/dev/.vnc
+RUN mkdir -p /home/dev/.vnc && \
+    printf '%s\n' \
+      '#!/bin/bash' \
+      'xrdb "$HOME/.Xresources" 2>/dev/null || true' \
+      'exec startxfce4' \
+    > /home/dev/.vnc/xstartup && \
+    chmod +x /home/dev/.vnc/xstartup && \
+    chown -R dev:dev /home/dev/.vnc
 
-# X startup script – start XFCE
-RUN cat << 'EOF' > /home/dev/.vnc/xstartup
-#!/bin/bash
-xrdb "$HOME/.Xresources" 2>/dev/null || true
-exec startxfce4
-EOF
 
-RUN chmod +x /home/dev/.vnc/xstartup
+#RUN cat << 'EOF' > /home/dev/.vnc/xstartup
+##!/bin/bash
+#xrdb "$HOME/.Xresources" 2>/dev/null || true
+#exec startxfce4
+#EOF
+
+#RUN chmod +x /home/dev/.vnc/xstartup
 
 # OPTIONAL: auto-start Firefox and/or VS Code when desktop starts
 # 🔑 KEY CHANGE: comment/uncomment as you like (more auto-start = less “lightweight” feel).
 RUN echo '\
-firefox &\n\
 code --no-sandbox &\n\
 ' >> /home/dev/.xsession
 
