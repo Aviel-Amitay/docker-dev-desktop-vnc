@@ -157,11 +157,11 @@ cleanup() {
   case "$answer" in
     [yY]|[yY][eE][sS])
       echo ""
-      echo "########################"
+      echo "#####################################################"
       echo "Keeping temporary files."
       echo "Dockerfile directory can be found at: '$TMP_CTX'"
       echo "YAML File locate at: '$OVERRIDE_FILE'"
-      echo "########################"
+      echo "#####################################################"
       echo ""
       ;;
     *)
