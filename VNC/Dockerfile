@@ -14,10 +14,10 @@ RUN apt update && apt install -y \
     dbus-x11 \
     sudo \
     locales \
-    nano \
+    nano vim \
     wget \
     curl \
-    net-tools \
+    net-tools git \
     && locale-gen en_US.UTF-8 \
     && apt clean && rm -rf /var/lib/apt/lists/*
 
@@ -47,7 +47,7 @@ RUN useradd -c "dev" -m -s /bin/bash dev \
     && echo "dev ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/dev \
     && chmod 0440 /etc/sudoers.d/dev
 
-# IMPORTANT -  Update here MyPassword 
+# IMPORTANT -  Update the Password 
 RUN echo "dev:changeme" | chpasswd
 
 USER dev
@@ -63,15 +63,6 @@ RUN mkdir -p /home/dev/.vnc && \
     chmod +x /home/dev/.vnc/xstartup && \
     chown -R dev:dev /home/dev/.vnc
 
-
-#RUN cat << 'EOF' > /home/dev/.vnc/xstartup
-##!/bin/bash
-#xrdb "$HOME/.Xresources" 2>/dev/null || true
-#exec startxfce4
-#EOF
-
-#RUN chmod +x /home/dev/.vnc/xstartup
-
 # OPTIONAL: auto-start Firefox and/or VS Code when desktop starts
 # 🔑 KEY CHANGE: comment/uncomment as you like (more auto-start = less “lightweight” feel).
 RUN echo '\
@@ -79,9 +70,20 @@ code --no-sandbox &\n\
 ' >> /home/dev/.xsession
 
 RUN cat <<'EOF' >> /home/dev/.bashrc
+cat <<'EOF'
+"Welcome to your VNC Desktop Environment!
+Your Aliases we added for you:
+- less -> more
+- c -> clear
+- s -> source ~/.bashrc
+- code -> code --no-sandbox (VS Code, if installed)
+To start the VNC server, run: start-vnc.sh
+EOF"
 
 # Personal Aliases, added with the Dockerfile
 alias less=more
+alias c=clear
+alias s="source ~/.bashrc"
 alias code='code --no-sandbox'
 EOF
 
