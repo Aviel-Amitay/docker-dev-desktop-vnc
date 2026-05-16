@@ -1,5 +1,3 @@
-#version: "3.9"
-
 services:
   devdesktop:
     build: ./VNC
@@ -10,8 +8,8 @@ services:
       - "5901:5901"
     # 2. Start VNC when the container starts
     command: >
-      bash -lc "vncserver :1 -geometry 1920x1080 -depth 16 -localhost no &&
-                tail -F /home/dev/.vnc/*.log"
+      tail -f /dev/null
+    restart: unless-stopped
     # (optional) If your image expects a specific user:
     user: "dev"
     working_dir: /home/dev

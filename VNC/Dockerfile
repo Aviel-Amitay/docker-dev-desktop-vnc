@@ -54,14 +54,14 @@ USER dev
 WORKDIR /home/dev
 
 # --- VNC + XFCE startup configuration ---
-RUN mkdir -p /home/dev/.vnc && \
+RUN mkdir -p /home/dev/.config/tigervnc/ && \
     printf '%s\n' \
       '#!/bin/bash' \
       'xrdb "$HOME/.Xresources" 2>/dev/null || true' \
       'exec startxfce4' \
-    > /home/dev/.vnc/xstartup && \
-    chmod +x /home/dev/.vnc/xstartup && \
-    chown -R dev:dev /home/dev/.vnc
+    > /home/dev/.config/tigervnc/xstartup && \
+    chmod +x /home/dev/.config/tigervnc/xstartup && \
+    chown -R dev:dev /home/dev/.config/tigervnc
 
 # OPTIONAL: auto-start Firefox and/or VS Code when desktop starts
 # 🔑 KEY CHANGE: comment/uncomment as you like (more auto-start = less “lightweight” feel).
@@ -70,15 +70,6 @@ code --no-sandbox &\n\
 ' >> /home/dev/.xsession
 
 RUN cat <<'EOF' >> /home/dev/.bashrc
-cat <<'EOF'
-"Welcome to your VNC Desktop Environment!
-Your Aliases we added for you:
-- less -> more
-- c -> clear
-- s -> source ~/.bashrc
-- code -> code --no-sandbox (VS Code, if installed)
-To start the VNC server, run: start-vnc.sh
-EOF"
 
 # Personal Aliases, added with the Dockerfile
 alias less=more

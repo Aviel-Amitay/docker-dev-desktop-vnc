@@ -12,7 +12,8 @@ export HOME=/home/dev
 cd "$HOME"
 
 # Create VNC password file
-mkdir -p "$HOME/.vnc"
+mkdir -p "$HOME/.config/tigervnc"
+ln -s .config/tigervnc/ .vnc
 echo "$VNC_PASSWORD" | vncpasswd -f > "$HOME/.vnc/passwd"
 chmod 600 "$HOME/.vnc/passwd"
 
